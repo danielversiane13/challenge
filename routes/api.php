@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MiddlewareController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,4 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('transactions', [TransactionController::class, 'index']);
+Route::resource('transactions', TransactionController::class)->only(['index', 'store']);
+
+Route::get('any-route', [MiddlewareController::class, 'index'])->middleware('permission:any_index');

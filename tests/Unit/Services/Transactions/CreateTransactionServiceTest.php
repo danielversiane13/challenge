@@ -16,13 +16,14 @@ class CreateTransactionServiceTest extends TestCase
 
         $createTransactionService = new CreateTransactionService;
 
-        $return = $createTransactionService->run(
+        $createdTransaction = $createTransactionService->run(
             $category->title,
             $transaction->title,
             $transaction->type,
             $transaction->value
         );
 
+        $this->assertArraySubset($transaction->toArray(), $createdTransaction->toArray());
         $this->assertDatabaseCount('transactions', 1);
         $this->assertDatabaseHas('transactions', $transaction->toArray());
     }
